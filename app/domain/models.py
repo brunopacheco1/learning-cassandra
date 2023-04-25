@@ -1,11 +1,13 @@
-from dataclasses import dataclass
-from typing import Dict
+from dataclasses import dataclass, field
+from uuid import UUID
 
 @dataclass(frozen=True)
 class Book:
+    id: UUID
     name: str
 
 @dataclass(frozen=True)
 class Author:
+    id: UUID
     name: str
-    books: Dict[str, Book]
+    books: dict[UUID, Book] = field(default_factory=dict)
