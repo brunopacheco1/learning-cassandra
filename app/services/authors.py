@@ -1,25 +1,24 @@
-from typing import Dict, List
 from app.domain.models import Author
 from app.domain.exceptions import AuthorNotFoundException
 
 class AuthorService:
-    authors: Dict[str, Author]
+    authors: dict[str, Author]
     def __init__(self) -> None:
-        self.authors = dict()
+        self.authors = {}
 
-    def add(self, author: Author) -> Author:
+    async def add(self, author: Author) -> Author:
         self.authors[author.name] = author
         return author
 
-    def get(self, name: str) -> Author:
+    async def get(self, name: str) -> Author:
         if name not in self.authors:
-            raise AuthorNotFoundException(name=name)
+            raise AuthorNotFoundException(name)
         return self.authors[name]
     
-    def remove(self, name: str) -> None:
+    async def remove(self, name: str) -> None:
         if name not in self.authors:
-            raise AuthorNotFoundException(name=name)
+            raise AuthorNotFoundException(name)
         del self.authors[name]
 
-    def list(self) -> List[Author]:
+    async def list(self) -> list[Author]:
         return list(self.authors.values())

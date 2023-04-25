@@ -1,26 +1,24 @@
-from typing import Dict, List
 from app.domain.models import Book
 from app.domain.exceptions import BookNotFoundException
 
 class BookService:
-    books: Dict[str, Book]
+    books: dict[str, Book]
     def __init__(self) -> None:
-        self.books = dict()
+        self.books = {}
 
-    def add(self, book: Book) -> Book:
-        raise Exception("rest")
+    async def add(self, book: Book) -> Book:
         self.books[book.name] = book
         return book
 
-    def get(self, name: str) -> Book:
+    async def get(self, name: str) -> Book:
         if name not in self.books:
-            raise BookNotFoundException(name=name)
+            raise BookNotFoundException(name)
         return self.books[name]
     
-    def remove(self, name: str) -> None:
+    async def remove(self, name: str) -> None:
         if name not in self.books:
-            raise BookNotFoundException(name=name)
+            raise BookNotFoundException(name)
         del self.books[name]
 
-    def list(self) -> List[Book]:
+    async def list(self) -> list[Book]:
         return list(self.books.values())
